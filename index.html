@@ -38,1050 +38,876 @@
 >
   <style>
 
-    :root {
 
-      --bg: #020705;
-      --bg-soft: #07130d;
+:root {
+  --bg: #020705;
+  --bg-soft: #07130d;
 
-      --green: #45f06a;
-      --green-light: #8cff9a;
-      --green-dark: #08752f;
+  --green: #25d366;
+  --green-light: #7dff9f;
+  --green-dark: #0c9f48;
 
-      --gold: #ffb51b;
-      --gold-light: #ffd866;
+  --gold: #ffb51b;
+  --gold-light: #ffd866;
 
-      --white: #f5f8f6;
-      --muted: #9aa9a1;
+  --white: #f5f8f6;
+  --muted: #9aa9a1;
 
-      --border: rgba(69, 240, 106, 0.18);
+  --border: rgba(69, 240, 106, 0.16);
+}
 
-    }
 
+/* =====================================
+   RESET
+===================================== */
 
-    * {
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-      margin: 0;
-      padding: 0;
 
-      box-sizing: border-box;
+html,
+body {
+  width: 100%;
+  min-height: 100%;
+}
 
-    }
 
+body {
+  font-family: "Inter", sans-serif;
+  color: var(--white);
 
-    html,
-    body {
+  background:
+    radial-gradient(
+      circle at 50% 10%,
+      rgba(37, 211, 102, 0.10),
+      transparent 35%
+    ),
+    radial-gradient(
+      circle at 90% 90%,
+      rgba(255, 181, 27, 0.07),
+      transparent 30%
+    ),
+    var(--bg);
 
-      width: 100%;
-      height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-      overflow: hidden;
+  position: relative;
 
-    }
+  overflow-x: hidden;
+}
 
 
-    body {
+/* =====================================
+   BACKGROUND GRID
+===================================== */
 
-      font-family: "Inter", sans-serif;
+body::before {
+  content: "";
 
-      color: var(--white);
+  position: fixed;
+  inset: 0;
 
-      background:
+  background-image:
+    linear-gradient(
+      rgba(255, 255, 255, 0.018) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.018) 1px,
+      transparent 1px
+    );
 
-        radial-gradient(
-          circle at 50% 15%,
-          rgba(58,255,91,.12),
-          transparent 34%
-        ),
+  background-size: 55px 55px;
 
-        radial-gradient(
-          circle at 90% 90%,
-          rgba(255,181,27,.08),
-          transparent 30%
-        ),
+  mask-image:
+    linear-gradient(
+      to bottom,
+      black,
+      transparent 90%
+    );
 
-        #020705;
+  pointer-events: none;
+}
 
-      display: flex;
 
-      align-items: center;
+/* =====================================
+   BACKGROUND GLOW
+===================================== */
 
-      justify-content: center;
+.glow {
+  position: fixed;
 
-      position: relative;
+  width: 300px;
+  height: 300px;
 
-    }
+  border-radius: 50%;
 
+  filter: blur(90px);
 
-    /* =====================================
-       BACKGROUND GRID
-    ====================================== */
+  opacity: 0.13;
 
-    body::before {
+  pointer-events: none;
 
-      content: "";
+  animation: glowMove 8s ease-in-out infinite;
+}
 
-      position: absolute;
 
-      inset: 0;
+.glow-one {
+  background: var(--green);
 
-      background-image:
+  left: -120px;
+  top: 5%;
+}
 
-        linear-gradient(
-          rgba(255,255,255,.018) 1px,
-          transparent 1px
-        ),
 
-        linear-gradient(
-          90deg,
-          rgba(255,255,255,.018) 1px,
-          transparent 1px
-        );
+.glow-two {
+  background: var(--gold);
 
-      background-size: 55px 55px;
+  right: -120px;
+  bottom: 5%;
 
-      mask-image:
-        linear-gradient(
-          to bottom,
-          black,
-          transparent
-        );
+  animation-delay: -4s;
+}
 
-      pointer-events: none;
 
-    }
+@keyframes glowMove {
 
+  0%,
+  100% {
+    transform: translateY(0);
+  }
 
-    /* =====================================
-       BACKGROUND GLOW
-    ====================================== */
+  50% {
+    transform: translateY(-25px);
+  }
 
-    .glow {
+}
 
-      position: absolute;
 
-      width: 280px;
-      height: 280px;
+/* =====================================
+   MAIN PAGE
+===================================== */
 
-      border-radius: 50%;
+.page {
+  width: 100%;
+  min-height: 100vh;
 
-      filter: blur(80px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-      opacity: .13;
+  padding: 20px;
 
-      pointer-events: none;
+  position: relative;
+  z-index: 2;
+}
 
-      animation:
-        glowMove 8s ease-in-out infinite;
 
-    }
+/* =====================================
+   MAIN CARD
+===================================== */
 
+.card {
+  width: min(100%, 680px);
 
-    .glow-one {
+  padding: 42px 38px;
 
-      background: var(--green);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
-      left: -100px;
-      top: 10%;
+  text-align: center;
 
-    }
+  border-radius: 28px;
 
+  border: 1px solid var(--border);
 
-    .glow-two {
+  background:
+    linear-gradient(
+      145deg,
+      rgba(10, 28, 19, 0.96),
+      rgba(2, 10, 7, 0.98)
+    );
 
-      background: var(--gold);
+  box-shadow:
+    0 30px 100px rgba(0, 0, 0, 0.55),
+    inset 0 0 60px rgba(63, 255, 91, 0.025);
 
-      right: -100px;
-      bottom: 5%;
+  backdrop-filter: blur(20px);
 
-      animation-delay: -4s;
+  position: relative;
 
-    }
+  overflow: hidden;
+}
 
 
-    @keyframes glowMove {
+.card::before {
+  content: "";
 
-      0%,
-      100% {
+  position: absolute;
 
-        transform:
-          translateY(0);
+  width: 350px;
+  height: 350px;
 
-      }
+  border-radius: 50%;
 
-      50% {
+  background:
+    rgba(69, 240, 106, 0.07);
 
-        transform:
-          translateY(-25px);
+  filter: blur(80px);
 
-      }
+  top: -210px;
+  left: 50%;
 
-    }
+  transform: translateX(-50%);
 
+  pointer-events: none;
+}
 
-    /* =====================================
-       MAIN
-    ====================================== */
 
-    .page {
+/* =====================================
+   BRAND
+===================================== */
 
-      width: 100%;
-      height: 100%;
+.brand {
+  display: flex;
 
-      display: flex;
+  align-items: center;
 
-      align-items: center;
+  gap: 12px;
 
-      justify-content: center;
+  margin-bottom: 24px;
 
-      padding: 20px;
+  position: relative;
+  z-index: 2;
+}
 
-      position: relative;
 
-      z-index: 2;
+.brand-icon {
+  width: 52px;
+  height: 52px;
 
-    }
+  display: grid;
+  place-items: center;
 
+  border-radius: 15px;
 
-    /* =====================================
-       MAIN CARD
-    ====================================== */
+  background:
+    linear-gradient(
+      145deg,
+      #ffd65a,
+      #f28b00
+    );
 
-    .card {
+  color: #553300;
 
-      width: min(100%, 720px);
+  font-size: 24px;
 
-      min-height: 620px;
+  box-shadow:
+    0 0 35px
+    rgba(255, 181, 27, 0.20);
 
-      padding: 42px 35px;
+  flex-shrink: 0;
+}
 
-      display: flex;
 
-      flex-direction: column;
+.brand-text {
+  text-align: left;
+}
 
-      align-items: center;
 
-      justify-content: center;
+.brand-text small {
+  display: block;
 
-      text-align: center;
+  color: #aebbb4;
 
-      border-radius: 30px;
+  font-size: 10px;
 
-      border:
-        1px solid var(--border);
+  letter-spacing: 3px;
 
-      background:
+  text-transform: uppercase;
 
-        linear-gradient(
-          145deg,
-          rgba(10,28,19,.95),
-          rgba(2,10,7,.97)
-        );
+  margin-bottom: 3px;
+}
 
-      box-shadow:
 
-        0 30px 100px
-        rgba(0,0,0,.55),
+.brand-text strong {
+  display: block;
 
-        inset 0 0 60px
-        rgba(63,255,91,.025);
+  font-size: 20px;
 
-      backdrop-filter:
-        blur(20px);
+  line-height: 1.1;
 
-      position: relative;
+  color: var(--white);
+}
 
-      overflow: hidden;
 
-    }
+/* =====================================
+   STATUS
+===================================== */
 
+.status {
+  display: inline-flex;
 
-    .card::before {
+  align-items: center;
 
-      content: "";
+  gap: 8px;
 
-      position: absolute;
+  padding: 9px 15px;
 
-      width: 320px;
-      height: 320px;
+  border-radius: 50px;
 
-      border-radius: 50%;
+  border:
+    1px solid
+    rgba(37, 211, 102, 0.20);
 
-      background:
-        rgba(69,240,106,.08);
+  background:
+    rgba(37, 211, 102, 0.055);
 
-      filter: blur(70px);
+  color: #c9f7d1;
 
-      top: -180px;
-      left: 50%;
+  font-size: 10px;
 
-      transform:
-        translateX(-50%);
+  font-weight: 700;
 
-    }
+  letter-spacing: 0.9px;
 
+  margin-bottom: 25px;
 
-    /* =====================================
-       BRAND
-    ====================================== */
+  position: relative;
+  z-index: 2;
+}
 
-    .brand {
 
-      display: flex;
+.status-dot {
+  width: 8px;
+  height: 8px;
 
-      align-items: center;
+  border-radius: 50%;
 
-      gap: 12px;
+  background: var(--green);
 
-      margin-bottom: 30px;
+  box-shadow:
+    0 0 12px
+    var(--green);
 
-      position: relative;
+  animation: pulse 1.8s infinite;
+}
 
-      z-index: 2;
 
-    }
+@keyframes pulse {
 
+  0% {
+    box-shadow:
+      0 0 0 0
+      rgba(37, 211, 102, 0.6);
+  }
 
-    .brand-icon {
+  70% {
+    box-shadow:
+      0 0 0 8px
+      rgba(37, 211, 102, 0);
+  }
 
-      width: 50px;
-      height: 50px;
+  100% {
+    box-shadow:
+      0 0 0 0
+      rgba(37, 211, 102, 0);
+  }
 
-      display: grid;
+}
 
-      place-items: center;
 
-      border-radius: 14px;
+/* =====================================
+   WHATSAPP ICON
+===================================== */
 
-      background:
+.card > .brand-icon {
+  width: 88px;
+  height: 88px;
 
-        linear-gradient(
-          145deg,
-          #ffd65a,
-          #f28b00
-        );
+  margin-bottom: 25px;
 
-      color: #553300;
+  border-radius: 24px;
 
-      font-size: 28px;
+  background:
+    linear-gradient(
+      145deg,
+      #39e879,
+      #0caa47
+    );
 
-      font-weight: 800;
+  color: white;
 
-      box-shadow:
+  font-size: 46px;
 
-        0 0 35px
-        rgba(255,181,27,.22);
+  box-shadow:
+    0 0 45px
+    rgba(37, 211, 102, 0.22);
 
-    }
+  animation: whatsappFloat 4s ease-in-out infinite;
 
+  position: relative;
+  z-index: 2;
+}
 
-    .brand-text {
 
-      text-align: left;
+@keyframes whatsappFloat {
 
-    }
+  0%,
+  100% {
+    transform: translateY(0);
+  }
 
+  50% {
+    transform: translateY(-7px);
+  }
 
-    .brand-text small {
+}
 
-      display: block;
 
-      color: #aebbb4;
+/* =====================================
+   HEADING
+===================================== */
 
-      font-size: 10px;
+h1 {
+  max-width: 600px;
 
-      letter-spacing: 3px;
+  font-size:
+    clamp(34px, 6vw, 54px);
 
-    }
+  line-height: 1.06;
 
+  letter-spacing: -2.5px;
 
-    .brand-text strong {
+  margin-bottom: 18px;
 
-      display: block;
+  position: relative;
+  z-index: 2;
+}
 
-      font-size: 20px;
 
-      line-height: 1.1;
+h1 span {
+  display: block;
 
-    }
+  color: var(--green);
 
+  text-shadow:
+    0 0 25px
+    rgba(37, 211, 102, 0.16);
+}
 
-    /* =====================================
-       STATUS
-    ====================================== */
 
-    .status {
+/* =====================================
+   DESCRIPTION
+===================================== */
 
-      display: inline-flex;
+.description {
+  max-width: 540px;
 
-      align-items: center;
+  color: var(--muted);
 
-      gap: 8px;
+  font-size: 15px;
 
-      padding: 9px 15px;
+  line-height: 1.75;
 
-      border-radius: 50px;
+  margin-bottom: 25px;
 
-      border:
-        1px solid
-        rgba(69,240,106,.2);
+  position: relative;
+  z-index: 2;
+}
 
-      background:
-        rgba(69,240,106,.06);
 
-      color: #c9f7d1;
+/* =====================================
+   PLATFORM INFO BOX
+===================================== */
 
-      font-size: 11px;
+.info-box {
+  width: min(100%, 520px);
 
-      font-weight: 600;
+  display: flex;
 
-      letter-spacing: .8px;
+  align-items: flex-start;
 
-      margin-bottom: 25px;
+  gap: 13px;
 
-      position: relative;
+  text-align: left;
 
-      z-index: 2;
+  padding: 17px 18px;
 
-    }
+  margin-bottom: 25px;
 
+  border-radius: 16px;
 
-    .status-dot {
+  border:
+    1px solid
+    rgba(69, 240, 106, 0.13);
 
-      width: 8px;
-      height: 8px;
+  background:
+    rgba(69, 240, 106, 0.045);
 
-      border-radius: 50%;
+  position: relative;
+  z-index: 2;
+}
 
-      background:
-        var(--green);
 
-      box-shadow:
-        0 0 12px
-        var(--green);
+.info-box > i {
+  width: 30px;
+  height: 30px;
 
-      animation:
-        pulse 1.8s infinite;
+  display: grid;
+  place-items: center;
 
-    }
+  border-radius: 50%;
 
+  background:
+    rgba(37, 211, 102, 0.12);
 
-    @keyframes pulse {
+  color: var(--green);
 
-      0% {
+  font-size: 15px;
 
-        box-shadow:
-          0 0 0 0
-          rgba(69,240,106,.6);
+  flex-shrink: 0;
+}
 
-      }
 
-      70% {
+.info-box strong {
+  display: block;
 
-        box-shadow:
-          0 0 0 8px
-          rgba(69,240,106,0);
+  color: #dceee3;
 
-      }
+  font-size: 13px;
 
-      100% {
+  margin-bottom: 5px;
+}
 
-        box-shadow:
-          0 0 0 0
-          rgba(69,240,106,0);
 
-      }
+.info-box p {
+  color: #82928a;
 
-    }
+  font-size: 12px;
 
+  line-height: 1.6;
+}
 
-    /* =====================================
-       BITCOIN COIN
-    ====================================== */
 
-    .coin {
+/* =====================================
+   WHATSAPP BUTTON
+===================================== */
 
-      width: 105px;
-      height: 105px;
+.whatsapp-btn {
+  width: min(100%, 440px);
 
-      display: grid;
+  min-height: 62px;
 
-      place-items: center;
+  display: flex;
 
-      border-radius: 50%;
+  align-items: center;
 
-      background:
+  justify-content: center;
 
-        radial-gradient(
-          circle at 32% 25%,
-          #fff7c7,
-          #ffd64e 34%,
-          #e99a09 67%,
-          #8c5700
-        );
+  gap: 12px;
 
-      border:
-        5px solid #d8a522;
+  padding: 16px 25px;
 
-      color: #765000;
+  border-radius: 15px;
 
-      font-size: 55px;
+  background:
+    linear-gradient(
+      135deg,
+      #20d95a,
+      #0b9f3d
+    );
 
-      font-weight: 800;
+  border:
+    1px solid
+    rgba(143, 255, 166, 0.45);
 
-      box-shadow:
+  color: white;
 
-        0 0 50px
-        rgba(255,190,36,.24),
+  font-size: 14px;
 
-        inset 0 0 20px
-        rgba(255,255,255,.35);
+  font-weight: 800;
 
-      margin-bottom: 28px;
+  letter-spacing: 0.5px;
 
-      animation:
-        coinFloat 5s ease-in-out infinite;
+  text-decoration: none;
 
-      position: relative;
+  box-shadow:
+    0 12px 35px
+    rgba(19, 202, 77, 0.22);
 
-      z-index: 2;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    filter 0.25s ease;
 
-    }
+  position: relative;
+  z-index: 2;
+}
 
 
-    @keyframes coinFloat {
+.whatsapp-btn:hover {
+  transform: translateY(-3px);
 
-      0%,
-      100% {
+  filter: brightness(1.08);
 
-        transform:
-          translateY(0)
-          rotate(-2deg);
+  box-shadow:
+    0 18px 45px
+    rgba(19, 202, 77, 0.35);
+}
 
-      }
 
-      50% {
+.whatsapp-btn:active {
+  transform: translateY(0);
+}
 
-        transform:
-          translateY(-10px)
-          rotate(2deg);
 
-      }
+/* =====================================
+   WHATSAPP BUTTON ICON
+===================================== */
 
-    }
+.whatsapp-icon {
+  width: 31px;
+  height: 31px;
 
+  display: grid;
+  place-items: center;
 
-    /* =====================================
-       HEADING
-    ====================================== */
+  border-radius: 50%;
 
-    h1 {
+  background:
+    rgba(255, 255, 255, 0.18);
 
-      font-size:
-        clamp(34px, 6vw, 56px);
+  font-size: 17px;
+}
 
-      line-height: 1.05;
 
-      letter-spacing: -2.5px;
+/* =====================================
+   FOOTER INFORMATION
+===================================== */
 
-      margin-bottom: 17px;
+.community-info {
+  display: flex;
 
-      position: relative;
+  align-items: center;
 
-      z-index: 2;
+  justify-content: center;
 
-    }
+  gap: 7px;
 
+  max-width: 480px;
 
-    h1 span {
+  margin-top: 18px;
 
-      color:
-        var(--green);
+  color: #68776f;
 
-      text-shadow:
-        0 0 25px
-        rgba(69,240,106,.16);
+  font-size: 10px;
 
-    }
+  line-height: 1.6;
 
+  position: relative;
+  z-index: 2;
+}
 
-    /* =====================================
-       DESCRIPTION
-    ====================================== */
 
-    .description {
+.community-info i {
+  color: #71847a;
 
-      max-width: 530px;
+  font-size: 11px;
+}
 
-      color:
-        var(--muted);
 
-      font-size: 15px;
+/* =====================================
+   MOBILE
+===================================== */
 
-      line-height: 1.7;
+@media (max-width: 600px) {
 
-      margin-bottom: 30px;
+  .page {
+    padding: 12px;
+  }
 
-      position: relative;
 
-      z-index: 2;
+  .card {
+    width: 100%;
 
-    }
+    padding: 30px 20px;
 
+    border-radius: 24px;
+  }
 
-    /* =====================================
-       WHATSAPP BUTTON
-    ====================================== */
 
-    .whatsapp-btn {
+  .brand {
+    margin-bottom: 19px;
+  }
 
-      width:
-        min(100%, 440px);
 
-      min-height: 62px;
+  .brand-icon {
+    width: 44px;
+    height: 44px;
 
-      display: flex;
+    font-size: 21px;
 
-      align-items: center;
+    border-radius: 13px;
+  }
 
-      justify-content: center;
 
-      gap: 12px;
+  .brand-text strong {
+    font-size: 17px;
+  }
 
-      padding: 16px 25px;
 
-      border-radius: 15px;
+  .status {
+    font-size: 9px;
 
-      background:
+    padding: 8px 12px;
 
-        linear-gradient(
-          135deg,
-          #20d95a,
-          #0b9f3d
-        );
+    margin-bottom: 20px;
+  }
 
-      border:
-        1px solid
-        rgba(143,255,166,.45);
 
-      color: white;
+  .card > .brand-icon {
+    width: 78px;
+    height: 78px;
 
-      font-size: 15px;
+    font-size: 40px;
 
-      font-weight: 800;
+    border-radius: 21px;
 
-      letter-spacing: .4px;
+    margin-bottom: 22px;
+  }
 
-      text-decoration: none;
 
-      box-shadow:
+  h1 {
+    font-size: 35px;
 
-        0 12px 35px
-        rgba(19,202,77,.22);
+    letter-spacing: -1.8px;
 
-      transition:
+    margin-bottom: 15px;
+  }
 
-        transform .25s ease,
-        box-shadow .25s ease,
-        filter .25s ease;
 
-      position: relative;
+  .description {
+    font-size: 13px;
 
-      z-index: 2;
+    line-height: 1.7;
 
-    }
+    margin-bottom: 21px;
+  }
 
 
-    .whatsapp-btn:hover {
+  .info-box {
+    padding: 14px;
 
-      transform:
-        translateY(-3px);
+    margin-bottom: 21px;
+  }
 
-      filter:
-        brightness(1.08);
 
-      box-shadow:
+  .info-box strong {
+    font-size: 12px;
+  }
 
-        0 18px 45px
-        rgba(19,202,77,.35);
 
-    }
+  .info-box p {
+    font-size: 11px;
+  }
 
 
-    .whatsapp-btn:active {
+  .whatsapp-btn {
+    min-height: 58px;
 
-      transform:
-        translateY(0);
+    font-size: 13px;
 
-    }
+    padding: 14px 18px;
+  }
 
 
-    .whatsapp-icon {
+  .community-info {
+    font-size: 9px;
 
-      width: 30px;
-      height: 30px;
+    margin-top: 15px;
+  }
 
-      display: grid;
+}
 
-      place-items: center;
 
-      border-radius: 50%;
+/* =====================================
+   SMALL HEIGHT DEVICES
+===================================== */
 
-      background:
-        rgba(255,255,255,.18);
+@media (max-height: 700px) {
 
-      font-size: 17px;
+  .page {
+    padding: 10px;
+  }
 
-    }
 
+  .card {
+    padding-top: 22px;
+    padding-bottom: 22px;
+  }
 
-    /* =====================================
-       INFORMATION
-    ====================================== */
 
-    .info {
+  .brand {
+    margin-bottom: 13px;
+  }
 
-      margin-top: 22px;
 
-      color: #78877f;
+  .status {
+    margin-bottom: 14px;
+  }
 
-      font-size: 11px;
 
-      line-height: 1.6;
+  .card > .brand-icon {
+    width: 65px;
+    height: 65px;
 
-      max-width: 440px;
+    font-size: 34px;
 
-      position: relative;
+    margin-bottom: 14px;
+  }
 
-      z-index: 2;
 
-    }
+  h1 {
+    font-size: 31px;
 
+    margin-bottom: 10px;
+  }
 
-    .info strong {
 
-      color: #a8b8af;
+  .description {
+    margin-bottom: 15px;
+  }
 
-    }
 
+  .info-box {
+    margin-bottom: 15px;
 
-    /* =====================================
-       BOTTOM FEATURES
-    ====================================== */
+    padding: 11px 13px;
+  }
 
-    .bottom {
 
-      margin-top: 27px;
+  .community-info {
+    margin-top: 10px;
+  }
 
-      display: flex;
+}
 
-      align-items: center;
 
-      justify-content: center;
-
-      gap: 18px;
-
-      color: #637169;
-
-      font-size: 10px;
-
-      position: relative;
-
-      z-index: 2;
-
-    }
-
-
-    .bottom span {
-
-      display: flex;
-
-      align-items: center;
-
-      gap: 6px;
-
-    }
-
-
-    .bottom-dot {
-
-      width: 4px;
-      height: 4px;
-
-      border-radius: 50%;
-
-      background: #526158;
-
-    }
-
-
-    /* =====================================
-       MOBILE
-    ====================================== */
-
-    @media (max-width: 600px) {
-
-      .page {
-
-        padding: 12px;
-
-      }
-
-
-      .card {
-
-        min-height:
-          calc(100vh - 24px);
-
-        padding:
-          28px 20px;
-
-        border-radius: 24px;
-
-      }
-
-
-      .brand {
-
-        margin-bottom: 20px;
-
-      }
-
-
-      .brand-icon {
-
-        width: 43px;
-        height: 43px;
-
-        font-size: 24px;
-
-      }
-
-
-      .brand-text strong {
-
-        font-size: 17px;
-
-      }
-
-
-      .status {
-
-        margin-bottom: 20px;
-
-      }
-
-
-      .coin {
-
-        width: 82px;
-        height: 82px;
-
-        font-size: 43px;
-
-        margin-bottom: 22px;
-
-      }
-
-
-      h1 {
-
-        font-size: 36px;
-
-        letter-spacing: -1.8px;
-
-      }
-
-
-      .description {
-
-        font-size: 14px;
-
-        margin-bottom: 25px;
-
-      }
-
-
-      .whatsapp-btn {
-
-        min-height: 58px;
-
-        font-size: 14px;
-
-      }
-
-
-      .info {
-
-        font-size: 10px;
-
-      }
-
-
-      .bottom {
-
-        margin-top: 20px;
-
-        gap: 10px;
-
-        flex-wrap: wrap;
-
-      }
-
-    }
-
-
-    @media (max-height: 700px) {
-
-      .card {
-
-        min-height: 96vh;
-
-        padding-top: 20px;
-
-        padding-bottom: 20px;
-
-      }
-
-
-      .brand {
-
-        margin-bottom: 14px;
-
-      }
-
-
-      .status {
-
-        margin-bottom: 14px;
-
-      }
-
-
-      .coin {
-
-        width: 72px;
-        height: 72px;
-
-        font-size: 38px;
-
-        margin-bottom: 15px;
-
-      }
-
-
-      h1 {
-
-        font-size: 32px;
-
-        margin-bottom: 10px;
-
-      }
-
-
-      .description {
-
-        margin-bottom: 18px;
-
-      }
-
-
-      .info {
-
-        margin-top: 13px;
-
-      }
-
-
-      .bottom {
-
-        margin-top: 12px;
-
-      }
-
-    }
 
   </style>
 
 </head>
 
 
-<body>
-
-
-  <div class="glow glow-one"></div>
-
-  <div class="glow glow-two"></div>
-
-
-  <main class="page">
-
-
-    <section class="card">
-
-
-      <!-- BRAND -->
-
-      <div class="brand">
-
-        <div class="brand-icon">
-  <i class="fa-solid fa-rocket"></i>
-</div>
-
-        <div class="brand-text">
-
-          <small>
-            Best 
-          </small>
-
-          <strong>
-            Application
-          </strong>
-
-        </div>
-
-      </div>
-
-
-      <!-- STATUS -->
-
-      <div class="status">
-
-        <span class="status-dot"></span>
-
-        COMMUNITY & PLATFORM UPDATES
-
-      </div>
-
-
-      <!-- BITCOIN -->
-
-      <div class="brand-icon">
-  <i class="fa-solid fa-rocket"></i>
-</div>
-
-
-      <!-- HEADING -->
-
-      <h1>
-
-        Welcome to Our
-        <span>
-          Community
-        </span>
-
-      </h1>
-
-
-      <!-- DESCRIPTION -->
-
-      <p class="description">
-
-        Join our WhatsApp Channel to receive
-        the latest platform updates,
-        announcements, access information
-        and important community updates.
-
-      </p>
+<body> <div class="glow glow-one"></div> <div class="glow glow-two"></div> <main class="page"> <section class="card"> <!-- BRAND --> <div class="brand"> <div class="brand-icon"> <i class="fa-solid fa-rocket"></i> </div> <div class="brand-text"> <small>Best</small> <strong>Platform</strong> </div> </div> <!-- STATUS --> <div class="status"> <span class="status-dot"></span> APP & WEBSITE UPDATES </div> <!-- WHATSAPP ICON --> <div class="brand-icon"> <i class="fa-brands fa-whatsapp"></i> </div> <!-- HEADING --> <h1> Need the App & Website <span> Link? </span> </h1> <!-- DESCRIPTION --> <p class="description"> If you want to learn more about this platform or need the official app and website link, follow our WhatsApp Channel. You will find the latest links, platform updates and important information there. </p> <!-- PLATFORM INFO --> <div class="info-box"> <i class="fa-solid fa-circle-check"></i> <div> <strong>Simple Interface & Company Support</strong> <p> The platform has a simple interface and company support is available. I am also an investor in this platform. </p> </div> </div>
 
 
       <!-- WHATSAPP BUTTON -->
@@ -1101,46 +927,8 @@
 </a>
 
 
-      <!-- INFORMATION -->
-
-      <p class="info">
-
-        <strong>
-          Important:
-        </strong>
-
-        The platform access link will be
-        shared through our WhatsApp Channel.
-
-      </p>
-
-
-      <!-- BOTTOM -->
-
-      <div class="bottom">
-
-        <span>
-          🔒 Secure Community
-        </span>
-
-        <span class="bottom-dot"></span>
-
-        <span>
-          📢 Latest Updates
-        </span>
-
-        <span class="bottom-dot"></span>
-
-        <span>
-          ⚡ Easy Access
-        </span>
-
-      </div>
-
-
-    </section>
-
-  </main>
+    <!-- FOOTER --> <div class="community-info"> <i class="fa-solid fa-bell"></i> Follow the WhatsApp Channel for the official app/website link and latest updates. </div> </section> </main>
+ 
 
 
 
